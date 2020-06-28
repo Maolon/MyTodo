@@ -1,0 +1,87 @@
+@url = http://localhost:4020
+@json = Content-Type: application/json
+
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWMxN2QxMDgyYzJhZDUyYjAyNzdiM2MiLCJpYXQiOjE1OTAwMjMwNDUwMTMsImV4cCI6MTU5MDQ1NTA0NTAxMywianRpIjoiZjc1NGVjNTAtOWFmZS0xMWVhLTg4MjQtNDM2MWNhMDc2YmUzIn0.JO84vWJRfq3az0I51QikKo_7XV033_JMLIo2knkfyZE
+### register
+post {{url}}/v1/auth/register
+{{json}}
+
+{
+    "username":"user1",
+    "password":"12345678"
+}
+
+### login
+post {{url}}/v1/auth/session
+{{json}}
+
+{
+    "username":"user1",
+    "password":"12345678"
+}
+
+### logout
+delete {{url}}/v1/auth/session
+
+
+### change password
+post {{url}}/v1/auth/changepassword
+{{json}}
+Authorization: Bearer {{token}}
+
+{
+   "password":"123456789"
+}
+
+
+### renew
+get {{url}}/v1/auth/session
+Authorization: Bearer {{token}}
+
+
+### get tasks
+get {{url}}/v1/tasks
+Authorization: Bearer {{token}}
+
+
+### create a task
+post {{url}}/v1/tasks
+{{json}}
+Authorization: Bearer {{token}}
+
+{
+    "task":{
+        "taskTitle":"Task",
+        "taskContent": "little black",
+        "taskType": "CheckList",
+        "important":true,
+        "schedule":true,
+        "status": "completed"
+    }
+}
+
+@taskId = 62d24460-928e-11ea-b343-0d3d9e460f0c
+### get a task
+get {{url}}/v1/tasks/{{taskId}}
+Authorization: Bearer {{token}}
+
+### update a task
+put {{url}}/v1/tasks/{{taskId}}
+{{json}}
+Authorization: Bearer {{token}}
+
+{
+    "task":{
+        "taskTitle":"Important",
+        "taskContent": "sss",
+        "taskType": "Task",
+        "end_date": "2022-01-02T05:00:00.000Z",
+        "status": "complete"
+    }
+}
+
+
+### delete a task
+delete {{url}}/v1/tasks/{{taskId}}
+Authorization: Bearer {{token}}
+
